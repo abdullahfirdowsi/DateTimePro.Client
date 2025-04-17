@@ -1,0 +1,41 @@
+<div class="datetime-wrapper">
+    <div class="datetime-card">
+      <div class="datetime-header">
+        <h1>DateTime Display</h1>
+        <p class="subtitle">Current Date and Time Across Timezones</p>
+      </div>
+  
+      <!-- System Information Section -->
+      <div class="system-info">
+        <h3>Your System Time Information</h3>
+        <p>Local Timezone: {{ localTime?.displayName }}</p>
+        <!-- <p>Offset: {{ localTime?.standardName }}</p> -->
+        <p>Region: {{ localTime?.id }}</p>
+        <p>Local Time: {{ localTime?.currentTime }}</p>
+        <p style="margin-top: 20px;"></p>
+      </div>
+  
+      <div class="timezone-section">
+        <label for="timezone">Select Timezone:</label>
+        <select
+          id="timezone"
+          [(ngModel)]="selectedTimezone"
+          (change)="onTimezoneChange()"
+          class="timezone-select">
+          <option *ngFor="let tz of timezones" [value]="tz.id">
+            {{ tz.displayName }}
+          </option>
+        </select>
+      </div>
+  
+      <div class="time-display">
+        <div class="time-text">{{ formattedDateTime }}</div>
+        <div class="timezone-indicator" *ngIf="!isLocalTimezone()">
+          (Showing time in selected timezone)
+        </div>
+        <div class="timezone-indicator local" *ngIf="isLocalTimezone()">
+          (Showing your local time)
+        </div>
+      </div>
+    </div>
+  </div>
