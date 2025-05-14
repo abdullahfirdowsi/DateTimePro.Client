@@ -78,6 +78,14 @@ export class TimeZoneComponent implements OnInit, OnDestroy {
   onTimezoneChange(): void {
     if (this.selectedTimezone) {
       this.startTimeUpdates(this.selectedTimezone);
+    } else {
+      // Handle case when blank option is selected
+      if (this.timeSubscription) {
+        this.timeSubscription.unsubscribe();
+        this.timeSubscription = undefined;
+      }
+      // Clear the formatted date time when no timezone is selected
+      this.formattedDateTime = '';
     }
   }
 
@@ -87,9 +95,7 @@ export class TimeZoneComponent implements OnInit, OnDestroy {
     }
     this.localTimeSubscription = this.timeZoneService.getCurrentTimePeriodically('local').subscribe(data => {
       this.localTime = data;
-      if (!this.selectedTimezone) {
-        this.formattedDateTime = data.currentTime;
-      }
+      // Don't set formattedDateTime when no timezone is selected
     });
   }
 

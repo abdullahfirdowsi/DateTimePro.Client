@@ -22,20 +22,21 @@
           [(ngModel)]="selectedTimezone"
           (change)="onTimezoneChange()"
           class="timezone-select">
+          <option value="">Select a timezone</option>
           <option *ngFor="let tz of timezones" [value]="tz.id">
             {{ tz.displayName }}
           </option>
         </select>
       </div>
   
-      <div class="time-display">
+      <div class="time-display" *ngIf="formattedDateTime">
         <div class="time-text">{{ formattedDateTime }}</div>
-        <div class="timezone-indicator" *ngIf="!isLocalTimezone()">
+        <!-- <div class="timezone-indicator" *ngIf="!isLocalTimezone()">
           (Showing time in selected timezone)
         </div>
         <div class="timezone-indicator local" *ngIf="isLocalTimezone()">
           (Showing your local time)
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
